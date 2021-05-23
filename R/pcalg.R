@@ -3027,11 +3027,11 @@ if (checkInput) {
       if(y.notparent) amat[x, y] <- FALSE
       # if (is.element(y.pos, x.pos)) matrix(0, nrow = nx, ncol = length(all.pasets))
       ## return joint.effects
-        if(ny==1) {beta.hat <- matrix(unlist(optimal.est(x.pos,y.pos,amat,mcov,verbose)),nrow=nx)} 
+        if(ny==1) {beta.hat <- matrix(unlist(optimal.est(x.pos,y.pos,amat,mcov,verbose, checkInput=checkInput)),nrow=nx)} 
         else{
           results <- list()
           beta.hat <- list()
-          result <- optimal.est(x.pos,y.pos,amat,mcov,verbose)
+          result <- optimal.est(x.pos,y.pos,amat,mcov,verbose, checkInput=checkInput)
           
           
           if(class(result)=="matrix") {
@@ -3243,12 +3243,12 @@ optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose, checkInput=TRUE)
     if(length(check[[3]]) < ny){
       if(length(check[[3]])>0){
       y.pruned <- y.pos[-check[[3]]]
-      opt.set <- optAdjSet(amat.cpdag,x.pos,y.pruned, checkInput)
+      opt.set <- optAdjSet(amat.cpdag,x.pos,y.pruned, checkInput=checkInput)
       if(ny==1 && nx==1){
         beta.hat[-check[[3]]] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))
       } else{beta.hat[-check[[3]],] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))}
         } else{
-            opt.set <- optAdjSet(amat.cpdag,x.pos,y.pos, checkInput)
+            opt.set <- optAdjSet(amat.cpdag,x.pos,y.pos, checkInput=checkInput)
             beta.hat <- t(gen.lm.cov(mcov,y.pos,x.pos,opt.set))
           } 
     }
@@ -3302,12 +3302,12 @@ optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose, checkInput=TRUE)
         if(length(check[[3]]) < ny){
           if(length(check[[3]])>0){
             y.pruned <- y.pos[-check[[3]]]
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned, checkInput)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned, checkInput=checkInput)
             if(ny==1 && nx==1){
               beta.hat[[count]][-check[[3]]] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))
             } else{beta.hat[[count]][-check[[3]],] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))}
           } else{
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos, checkInput)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos, checkInput=checkInput)
             beta.hat[[count]] <- t(gen.lm.cov(mcov,y.pos,x.pos,opt.set))
           } 
         }
@@ -3383,12 +3383,12 @@ optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose, checkInput=TRUE)
         if(length(check[[3]]) < ny){
           if(length(check[[3]])>0){
             y.pruned <- y.pos[-check[[3]]]
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned, checkInput)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned, checkInput=checkInput)
             if(ny==1 && nx==1){
               beta.hat[[count]][-check[[3]]] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))
             } else{beta.hat[[count]][-check[[3]],] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))}
           } else{
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos, checkInput)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos, checkInput=checkInput)
             beta.hat[[count]] <- t(gen.lm.cov(mcov,y.pos,x.pos,opt.set))
           } 
         }
