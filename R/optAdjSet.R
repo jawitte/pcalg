@@ -1,4 +1,4 @@
-optAdjSet <- function(graphEst, x.pos, y.pos){
+optAdjSet <- function(graphEst, x.pos, y.pos, checkInput=TRUE){
   ## graphEst    GraphNel object
   ## x.pos  Node positions of treatment nodes.
   ## y.pos  Node positions of outome nodes.
@@ -10,9 +10,11 @@ optAdjSet <- function(graphEst, x.pos, y.pos){
   
   # stopifnot(x.pos==(x <- as.integer(x.pos)), y.pos==(y <- as.integer(y.pos)), length(x)==1, length(y)==1)
   
+  if (checkInput) {
     if (!isValidGraph(amat=m, type="pdag")) {
       stop("The input graph is not a valid DAG, CPDAG or maximal PDAG. See function isValidGraph() for details.\n")
     }
+  }
   
 
   
