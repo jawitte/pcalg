@@ -3011,7 +3011,7 @@ ida <- function (x.pos, y.pos, mcov, graphEst, method = c("local", "optimal","gl
   amat[which(amat != 0)] <- 1 ## coding: amat.cpdag
   
   ## test if valid input amat
-if (check) {
+if (checkInput) {
   if (!isValidGraph(amat = amat, type = type)) {
     message("The input graph is not a valid ",type,". See function isValidGraph() for details.\n")
   }
