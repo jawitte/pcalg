@@ -2980,7 +2980,7 @@ revealEdge <- function(c,d,s) { ## cpdag, dag, selected edges to reveal
 
 ida <- function (x.pos, y.pos, mcov, graphEst, method = c("local", "optimal","global"),
                  y.notparent = FALSE, verbose = FALSE, all.dags = NA,
-                 type = c("cpdag", "pdag"))
+                 type = c("cpdag", "pdag"), checkInput=TRUE)
 {
   method <- match.arg(method)
   
@@ -3011,9 +3011,11 @@ ida <- function (x.pos, y.pos, mcov, graphEst, method = c("local", "optimal","gl
   amat[which(amat != 0)] <- 1 ## coding: amat.cpdag
   
   ## test if valid input amat
+if (check) {
   if (!isValidGraph(amat = amat, type = type)) {
     message("The input graph is not a valid ",type,". See function isValidGraph() for details.\n")
   }
+}
   
   if (length(y.pos) > 1 && method!="optimal") { ## call myself for each y in y.pos :
       beta.hat <- lapply(y.pos, function(y) ida(x.pos, y, mcov=mcov,
