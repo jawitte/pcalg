@@ -3185,7 +3185,7 @@ if (checkInput) {
 }
 
 
-optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose) 
+optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose, checkInput=TRUE) 
 { 
   ## if not working with amat.cpdag type then:
   ## amat.cpdag <- t(amat.cpdag)
@@ -3243,12 +3243,12 @@ optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose)
     if(length(check[[3]]) < ny){
       if(length(check[[3]])>0){
       y.pruned <- y.pos[-check[[3]]]
-      opt.set <- optAdjSet(amat.cpdag,x.pos,y.pruned)
+      opt.set <- optAdjSet(amat.cpdag,x.pos,y.pruned, checkInput)
       if(ny==1 && nx==1){
         beta.hat[-check[[3]]] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))
       } else{beta.hat[-check[[3]],] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))}
         } else{
-            opt.set <- optAdjSet(amat.cpdag,x.pos,y.pos)
+            opt.set <- optAdjSet(amat.cpdag,x.pos,y.pos, checkInput)
             beta.hat <- t(gen.lm.cov(mcov,y.pos,x.pos,opt.set))
           } 
     }
@@ -3302,12 +3302,12 @@ optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose)
         if(length(check[[3]]) < ny){
           if(length(check[[3]])>0){
             y.pruned <- y.pos[-check[[3]]]
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned, checkInput)
             if(ny==1 && nx==1){
               beta.hat[[count]][-check[[3]]] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))
             } else{beta.hat[[count]][-check[[3]],] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))}
           } else{
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos, checkInput)
             beta.hat[[count]] <- t(gen.lm.cov(mcov,y.pos,x.pos,opt.set))
           } 
         }
@@ -3383,12 +3383,12 @@ optimal.est <- function (x.pos,y.pos, amat.cpdag, mcov,verbose)
         if(length(check[[3]]) < ny){
           if(length(check[[3]])>0){
             y.pruned <- y.pos[-check[[3]]]
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pruned, checkInput)
             if(ny==1 && nx==1){
               beta.hat[[count]][-check[[3]]] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))
             } else{beta.hat[[count]][-check[[3]],] <- t(gen.lm.cov(mcov,y.pruned,x.pos,opt.set))}
           } else{
-            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos)
+            opt.set <- optAdjSet(amat.amenable,x.pos,y.pos, checkInput)
             beta.hat[[count]] <- t(gen.lm.cov(mcov,y.pos,x.pos,opt.set))
           } 
         }
